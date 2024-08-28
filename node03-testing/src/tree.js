@@ -1,10 +1,15 @@
-#!/usr/bin/env node
-import yargs from 'yargs'
-import {hideBin} from "yargs/helpers"
 import fs from 'fs';
-import {sep} from 'path';
+import { sep } from 'path';
+
+const printFilesTree = (basePath, depth) => {
+    console.log(basePath);
+    if (isDir(basePath)) {
+        printDirContent(basePath, 0, depth - 1);
+    }
+}
 
 const printDirContent = (path, currentDepth, maxDepth) => {
+    
     // check if dir contains anything
     if (!isDirContainsAnything(path)) return;
 
@@ -39,8 +44,10 @@ const printDirContent = (path, currentDepth, maxDepth) => {
 }
 
 const isDir = (path) => {
-    const stats = fs.statSync(path);
-    if (stats === undefined) {
+    let stats;
+    try {
+        stats = fs.statSync(path);
+    } catch (error) {
         throw new Error('No stats available for path ' + path);
     }
     return stats.isDirectory();
@@ -50,15 +57,4 @@ const isDirContainsAnything = (pathToDir) => {
     return fs.readdirSync(pathToDir).length !== 0;
 }
 
-const main = () => {
-    const args = yargs(hideBin(process.argv)).argv;
-    const depth = args.D;
-    const basePath = args._[0];
-
-    console.log(basePath);
-    if (isDir(basePath)) {
-        printDirContent(basePath, 0, depth);
-    }
-}
-
-main();
+export { printFilesTree }
