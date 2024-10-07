@@ -1,0 +1,30 @@
+<form id="edit-form" action="edit.html">
+    <h3>Edit book:</h3>
+
+    <div class="row">
+        <label for="book-id-input">ID:</label>
+        <input id="book-id-input" type="text" readonly="readonly" value={{{book.id}}}/>
+    </div>
+
+    <div class="row">
+        <label for="book-title-input">Title:</label>
+        <input id="book-title-input" name="title" type="text" value={{{book.title}}}/>
+    </div>
+
+    <div class="row">
+        <label for="book-author-input">Author:</label>
+        <input id="book-author-input" name="author" type="text" value={{{book.author}}}/>
+    </div>
+
+    <div class="row">
+        <label for="book-genre-input">Genre:</label>
+        <input id="book-genre-input" name="genre" type="text" value={{{book.genre}}}/>
+    </div>
+
+    <div class="row">
+        <button type="submit">Save</button>
+        <a href="/">
+            <button type="button">Cancel</button>
+        </a>
+    </div>
+</form>
